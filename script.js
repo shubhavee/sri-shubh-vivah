@@ -66,13 +66,14 @@
   /* ---------- Hero mandala (fine gold line-art, built from repeated petals) ---------- */
   (() => {
     const ring = (n, make) => Array.from({ length: n }, (_, i) => `<g transform="rotate(${(i * 360) / n})">${make(i)}</g>`).join("");
-    $("#mandala").innerHTML = `<g fill="none" stroke="currentColor" stroke-width=".5">
+    const art = `<g fill="none" stroke="currentColor" stroke-width=".5">
       <circle r="98" /><circle r="93" stroke-dasharray="1 3" /><circle r="62" /><circle r="41" /><circle r="17" />
       ${ring(36, () => '<path d="M0 -91 C6 -82 6 -72 0 -64 C-6 -72 -6 -82 0 -91 Z" />')}
       ${ring(18, () => '<path d="M0 -60 C11 -54 11 -46 0 -42 C-11 -46 -11 -54 0 -60 Z" /><path d="M0 -58 V-44" />')}
       ${ring(12, () => '<path d="M0 -39 C9 -31 9 -23 0 -19 C-9 -23 -9 -31 0 -39 Z" />')}
       ${ring(8, () => '<path d="M0 -16 C5 -11 5 -6 0 -3 C-5 -6 -5 -11 0 -16 Z" />')}
     </g><g fill="currentColor">${ring(72, () => '<circle cy="-95.5" r=".8" />')}${ring(18, () => '<circle cy="-66" r="1.3" />')}</g>`;
+    document.querySelectorAll(".mandala").forEach((svg) => { svg.innerHTML = art; });
   })();
 
   /* ---------- Scroll reveal ---------- */

@@ -65,12 +65,13 @@ small { color: var(--muted); font-size: .8em; }
 
 /* ---------- Intro envelope ---------- */
 .intro {
-  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px;
+  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; overflow: hidden;
   background: radial-gradient(ellipse at center, #7a1729 0%, var(--maroon-deep) 75%);
   transition: opacity .9s ease, visibility .9s;
 }
 .intro.gone { opacity: 0; visibility: hidden; }
 .intro-card {
+  position: relative; z-index: 1; background: rgba(58,8,18,.4); backdrop-filter: blur(2px);
   text-align: center; color: var(--cream); max-width: 420px; width: 100%;
   padding: 44px 28px; border: 1px solid rgba(236,208,138,.5); border-radius: 200px 200px 24px 24px;
   outline: 1px solid rgba(236,208,138,.25); outline-offset: 8px;
@@ -137,8 +138,8 @@ small { color: var(--muted); font-size: .8em; }
 .paisley { position: absolute; bottom: 26px; width: clamp(64px, 10vw, 130px); opacity: .32; pointer-events: none; }
 .paisley.pl { left: clamp(10px, 4vw, 70px); }
 .paisley.pr { right: clamp(10px, 4vw, 70px); transform: scaleX(-1); }
-.arch .kalash { position: absolute; top: -50px; left: 50%; translate: -50% 0; width: 76px; filter: drop-shadow(0 4px 8px rgba(0,0,0,.35)); }
-.arch .lotus { position: absolute; bottom: -24px; left: 50%; translate: -50% 0; width: 112px; filter: drop-shadow(0 4px 8px rgba(0,0,0,.35)); }
+.arch .kalash, .intro-card .kalash { position: absolute; top: -50px; left: 50%; translate: -50% 0; width: 76px; filter: drop-shadow(0 4px 8px rgba(0,0,0,.35)); }
+.arch .lotus, .intro-card .lotus { position: absolute; bottom: -24px; left: 50%; translate: -50% 0; width: 112px; filter: drop-shadow(0 4px 8px rgba(0,0,0,.35)); }
 @keyframes spin { to { rotate: 360deg; } }
 .toran { /* marigold garland with mango leaves */
   position: absolute; top: 0; left: 0; right: 0; height: 70px; z-index: 2;
