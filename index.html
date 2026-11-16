@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en" data-invite="day">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wedding Invitation</title>
+  <meta name="description" content="You are invited to celebrate our wedding in Bengaluru." />
+  <!-- Link preview when shared on WhatsApp -->
+  <meta property="og:title" content="You're invited to our wedding" />
+  <meta property="og:description" content="Delhi ❤ Bihar · Bengaluru · Tap to open your invitation" />
+  <meta property="og:image" content="assets/preview.jpg" />
+  <meta name="theme-color" content="#5c0f1f" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Marcellus&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=202611161942" />
+</head>
+<body>
+
+  <!-- ===== Opening envelope (also unlocks music — browsers block autoplay) ===== -->
+  <div id="intro" class="intro">
+    <div class="intro-card">
+      <p class="invocation">॥ श्री गणेशाय नमः ॥</p>
+      <svg class="ganesh" viewBox="0 0 100 100" aria-hidden="true"><use href="#om" /></svg>
+      <p class="intro-small">Together with their families</p>
+      <h1 class="intro-names"><span data-bind="bride.name"></span> <span class="amp">&amp;</span> <span data-bind="groom.name"></span></h1>
+      <p class="intro-small">request the pleasure of your company</p>
+      <button id="openInvite" class="btn btn-gold">Open Invitation</button>
+    </div>
+  </div>
+
+  <div id="petals" aria-hidden="true"></div>
+
+  <button id="musicBtn" class="music-btn" aria-pressed="true" hidden>
+    <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <span class="music-label">Music On</span>
+  </button>
+  <audio id="bgm" preload="none"></audio>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="toran" aria-hidden="true"></div>
+    <svg class="mandala" id="mandala" viewBox="-100 -100 200 200" aria-hidden="true"></svg>
+    <div class="lanterns left" aria-hidden="true">
+      <span class="lantern" style="--drop:34px"><svg viewBox="0 0 40 100"><use href="#lantern" /></svg></span>
+      <span class="lantern" style="--drop:78px"><svg viewBox="0 0 40 100"><use href="#lantern" /></svg></span>
+      <span class="lantern" style="--drop:50px"><svg viewBox="0 0 40 100"><use href="#lantern" /></svg></span>
+    </div>
+    <div class="lanterns right" aria-hidden="true">
+      <span class="lantern" style="--drop:34px"><svg viewBox="0 0 40 100"><use href="#lantern" /></svg></span>
+      <span class="lantern" style="--drop:78px"><svg viewBox="0 0 40 100"><use href="#lantern" /></svg></span>
+      <span class="lantern" style="--drop:50px"><svg viewBox="0 0 40 100"><use href="#lantern" /></svg></span>
+    </div>
+    <svg class="paisley pl" viewBox="0 0 100 140" aria-hidden="true"><use href="#paisley" /></svg>
+    <svg class="paisley pr" viewBox="0 0 100 140" aria-hidden="true"><use href="#paisley" /></svg>
+    <div class="arch">
+      <svg class="kalash" viewBox="0 0 80 84" aria-hidden="true"><use href="#kalash" /></svg>
+      <p class="invocation">॥ श्री शुभ विवाह ॥</p>
+      <p class="eyebrow">The wedding of</p>
+      <h1 class="names">
+        <span data-bind="bride.name"></span>
+        <span class="amp">&amp;</span>
+        <span data-bind="groom.name"></span>
+      </h1>
+      <p class="date" data-bind="displayDate"></p>
+      <p class="place">Bengaluru</p>
+      <div class="countdown" id="countdown">
+        <div><b id="cd-d">--</b><span>Days</span></div>
+        <div><b id="cd-h">--</b><span>Hours</span></div>
+        <div><b id="cd-m">--</b><span>Mins</span></div>
+        <div><b id="cd-s">--</b><span>Secs</span></div>
+      </div>
+      <a href="#rsvp" class="btn btn-gold">RSVP</a>
+      <svg class="lotus" viewBox="0 0 120 56" aria-hidden="true"><use href="#lotus" /></svg>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== Poem ===== -->
+    <section class="section poem">
+      <svg class="poem-om" viewBox="0 0 100 100" aria-hidden="true"><use href="#om" /></svg>
+      <p class="poem-hi">
+        सात फेरों का ये पावन बंधन,<br />
+        दो परिवारों का प्यारा संगम।<br />
+        दिल्ली की ख़ुशबू, बिहार का प्यार,<br />
+        सजे बेंगलुरु में ये शुभ त्योहार॥
+      </p>
+      <p class="poem-en">Seven sacred rounds, one pure bond; two families, one loving union.<br />
+        The fragrance of Delhi, the warmth of Bihar: a celebration of joy in Bengaluru.</p>
+    </section>
+
+    <!-- ===== Families ===== -->
+    <section class="section families">
+      <p class="eyebrow">Dilli meets Bihar</p>
+      <h2>Two families, one celebration</h2>
+      <div class="divider" aria-hidden="true"></div>
+      <div class="family-grid">
+        <article class="family-card">
+          <svg class="frame" viewBox="0 0 300 420" preserveAspectRatio="none" aria-hidden="true"><use href="#jharokha" /></svg>
+          <div class="family-inner">
+            <div class="portrait"><svg viewBox="0 6 200 200" preserveAspectRatio="xMidYMin slice" role="img" aria-label="Illustration of the bride"><use href="#bride" /></svg></div>
+            <p class="from">The Bride · <span data-bind="bride.city"></span></p>
+            <h3 data-bind="bride.fullName"></h3>
+            <p class="parents" data-parents="bride"></p>
+          </div>
+        </article>
+        <div class="weds" aria-hidden="true"><span>weds</span></div>
+        <article class="family-card">
+          <svg class="frame" viewBox="0 0 300 420" preserveAspectRatio="none" aria-hidden="true"><use href="#jharokha" /></svg>
+          <div class="family-inner">
+            <div class="portrait"><svg viewBox="0 6 200 200" preserveAspectRatio="xMidYMin slice" role="img" aria-label="Illustration of the groom"><use href="#groom" /></svg></div>
+            <p class="from">The Groom · <span data-bind="groom.city"></span></p>
+            <h3 data-bind="groom.fullName"></h3>
+            <p class="parents" data-parents="groom"></p>
+          </div>
+        </article>
+      </div>
+      <p class="blurb">
+        Delhi's chaat and Bihar's litti chokha are coming together in the Garden City.
+        Join us in Bengaluru for days full of rituals, music, food and love.
+      </p>
+      <p class="hashtag" data-bind="hashtag"></p>
+    </section>
+
+    <!-- ===== Events ===== -->
+    <section class="section events" id="events">
+      <p class="eyebrow">The festivities</p>
+      <h2>The Programme</h2>
+      <div class="divider" aria-hidden="true"></div>
+      <div class="days" id="eventList"></div>
+    </section>
+
+    <!-- ===== Venue ===== -->
+    <section class="section venue" id="venue">
+      <p class="eyebrow">Where</p>
+      <h2 data-bind="venue.name"></h2>
+      <div class="divider" aria-hidden="true"></div>
+      <p class="address" data-bind="venue.address"></p>
+      <div class="map-wrap"><iframe id="mapFrame" title="Venue map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      <a id="mapsLink" class="btn btn-outline" target="_blank" rel="noopener">Open in Google Maps</a>
+    </section>
+
+    <!-- ===== RSVP ===== -->
+    <section class="section rsvp" id="rsvp">
+      <h2>Will you join us?</h2>
+      <div class="divider" aria-hidden="true"></div>
+
+      <form id="rsvpForm" class="card form" novalidate>
+        <div class="choice" role="radiogroup" aria-label="Attendance">
+          <label class="choice-btn yes"><input type="radio" name="attending" value="Yes" required /><span>🎉 Yes, I'll be there</span></label>
+          <label class="choice-btn no"><input type="radio" name="attending" value="No" /><span>🙏 Sorry, can't make it</span></label>
+        </div>
+
+        <label>Your name<input name="name" required autocomplete="name" placeholder="Full name" /></label>
+        <label>WhatsApp number<input name="phone" required type="tel" inputmode="tel" autocomplete="tel" placeholder="10-digit mobile" /></label>
+
+        <div class="if-yes">
+          <label>Number of guests (including you)
+            <select name="guests"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6+</option></select>
+          </label>
+          <fieldset id="daysField">
+            <legend>Which days will you attend?</legend>
+            <div id="eventChecks" class="checks"></div>
+          </fieldset>
+          <label>Travelling from<input name="from" placeholder="City" /></label>
+        </div>
+        <label>Message for the couple <small>(optional)</small><textarea name="message" rows="2"></textarea></label>
+
+        <button class="btn btn-gold" type="submit" id="rsvpSubmit">Send RSVP</button>
+        <p class="form-status" id="rsvpStatus" role="status"></p>
+      </form>
+
+      <div id="rsvpDone" class="card done" hidden>
+        <h3 id="doneTitle"></h3>
+        <p id="doneText"></p>
+        <div class="done-actions" id="doneActions"></div>
+      </div>
+    </section>
+
+    <!-- ===== Contacts ===== -->
+    <section class="section contacts">
+      <p class="eyebrow">Questions?</p>
+      <h2>Reach out to us</h2>
+      <div class="divider" aria-hidden="true"></div>
+      <div class="couple-chat" id="coupleChat"></div>
+      <div class="contact-grid" id="contactList"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="script-line">With love &amp; blessings</p>
+    <p><span data-bind="bride.name"></span> &amp; <span data-bind="groom.name"></span> · <span data-bind="hashtag"></span></p>
+  </footer>
+
+  <!-- Shared SVG symbols -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="maroonFill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#7a1729" /><stop offset="1" stop-color="#3a0812" />
+      </linearGradient>
+      <linearGradient id="goldLine" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f7e2a3" /><stop offset=".5" stop-color="#c9a24a" /><stop offset="1" stop-color="#a57d2c" />
+      </linearGradient>
+    </defs>
+    <!-- Jharokha (palace window) arch frame -->
+    <symbol id="jharokha" viewBox="0 0 300 420">
+      <path d="M10 410 V150 C10 100 62 80 102 66 C132 55 146 38 150 16 C154 38 168 55 198 66 C238 80 290 100 290 150 V410 Z" fill="url(#maroonFill)" stroke="url(#goldLine)" stroke-width="3" vector-effect="non-scaling-stroke" />
+      <path d="M22 398 V154 C22 110 68 92 106 78 C134 68 146 54 150 36 C154 54 166 68 194 78 C232 92 278 110 278 154 V398 Z" fill="none" stroke="#c9a24a" stroke-width="1" stroke-dasharray="1 5" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+      <path d="M32 388 V158 C32 118 74 102 110 89 C136 80 147 68 150 54 C153 68 164 80 190 89 C226 102 268 118 268 158 V388 Z" fill="none" stroke="#c9a24a" stroke-opacity=".55" stroke-width="1" vector-effect="non-scaling-stroke" />
+      <g fill="#ecd08a"><circle cx="150" cy="8" r="5" /><path d="M150 0 C146 -8 154 -8 150 0" /></g>
+      <g fill="#c9a24a" opacity=".9">
+        <circle cx="32" cy="388" r="4" /><circle cx="268" cy="388" r="4" />
+        <circle cx="32" cy="158" r="3" /><circle cx="268" cy="158" r="3" />
+      </g>
+    </symbol>
+    <!-- Bride: red dupatta, long hair, maang tikka, nath, jhumkas — gaze to the right (towards the groom) -->
+    <symbol id="bride" viewBox="0 0 200 220">
+      <!-- veil, back -->
+      <path d="M100 22 C42 22 24 70 28 124 C31 166 20 198 14 220 H186 C180 198 169 166 172 124 C176 70 158 22 100 22 Z" fill="#a3123f" />
+      <!-- long hair falling behind the shoulders -->
+      <path d="M54 104 C48 150 46 190 42 220 H158 C154 190 152 150 146 104 Z" fill="#24140f" />
+      <!-- blouse -->
+      <path d="M40 220 C44 190 68 172 100 172 C132 172 156 190 160 220 Z" fill="#c2185b" />
+      <path d="M66 220 C72 200 84 190 100 190 C116 190 128 200 134 220" fill="none" stroke="#e8c873" stroke-width="3" />
+      <!-- neck & choker -->
+      <path d="M88 140 H112 V176 C106 181 94 181 88 176 Z" fill="#e0a982" />
+      <path d="M86 168 C93 178 107 178 114 168" fill="none" stroke="#e0b44c" stroke-width="5" stroke-linecap="round" />
+      <g fill="#c2185b"><circle cx="100" cy="176" r="3.2" /><circle cx="92" cy="173" r="1.8" /><circle cx="108" cy="173" r="1.8" /></g>
+      <!-- front locks of hair down to the waist -->
+      <path d="M58 112 C52 140 60 170 54 220 H70 C74 184 66 150 70 120 Z" fill="#2b1a14" />
+      <path d="M142 112 C148 140 140 170 146 220 H130 C126 184 134 150 130 120 Z" fill="#2b1a14" />
+      <g transform="rotate(6 100 110)">
+        <!-- face -->
+        <ellipse cx="100" cy="102" rx="43" ry="45" fill="#f0c19c" />
+        <!-- hair framing the face, centre parting -->
+        <path d="M56 104 C52 60 76 46 100 46 C124 46 148 60 144 104 C140 82 124 66 102 64 L100 70 L98 64 C76 66 60 82 56 104 Z" fill="#2b1a14" />
+        <!-- maang tikka -->
+        <path d="M100 48 V72" stroke="#e0b44c" stroke-width="2" />
+        <circle cx="100" cy="76" r="5" fill="#e0b44c" /><circle cx="100" cy="76" r="2.3" fill="#c2185b" />
+        <circle cx="100" cy="87" r="2.6" fill="#b5174f" />
+        <!-- brows -->
+        <path d="M74 91 C79 88 86 88 90 90" fill="none" stroke="#3a2418" stroke-width="2.2" stroke-linecap="round" />
+        <path d="M110 90 C114 88 121 88 126 91" fill="none" stroke="#3a2418" stroke-width="2.2" stroke-linecap="round" />
+        <!-- big sparkly eyes looking right -->
+        <circle cx="82" cy="106" r="9.5" fill="#fff" /><circle cx="118" cy="106" r="9.5" fill="#fff" />
+        <circle cx="85" cy="107" r="7" fill="#3b2418" /><circle cx="121" cy="107" r="7" fill="#3b2418" />
+        <circle cx="87.5" cy="104" r="2.6" fill="#fff" /><circle cx="123.5" cy="104" r="2.6" fill="#fff" />
+        <circle cx="83" cy="110" r="1.2" fill="#fff" /><circle cx="119" cy="110" r="1.2" fill="#fff" />
+        <path d="M72 101 C76 95 88 94 92 99 M108 99 C112 94 124 95 128 101" fill="none" stroke="#24140f" stroke-width="2.4" stroke-linecap="round" />
+        <path d="M73 100 L69 97 M127 100 L131 97 M128 103 L132 101" stroke="#24140f" stroke-width="1.6" stroke-linecap="round" />
+        <!-- tiny nose & nath -->
+        <path d="M99 116 C101 118 103 118 104 116" fill="none" stroke="#c98560" stroke-width="1.8" stroke-linecap="round" />
+        <circle cx="105.5" cy="119" r="3.3" fill="none" stroke="#e0b44c" stroke-width="1.4" /><circle cx="107.5" cy="121.5" r="1.1" fill="#c2185b" />
+        <path d="M108.5 117 C122 112 132 110 138 110" fill="none" stroke="#e0b44c" stroke-width=".9" stroke-dasharray="1.5 1.5" />
+        <!-- rosy cheeks & smile -->
+        <ellipse cx="72" cy="122" rx="8" ry="5" fill="#ff8a9a" opacity=".55" /><ellipse cx="128" cy="122" rx="8" ry="5" fill="#ff8a9a" opacity=".55" />
+        <path d="M91 127 C95 134 105 134 109 127 Z" fill="#c2185b" stroke="#c2185b" stroke-width="2" stroke-linejoin="round" />
+        <!-- jhumkas -->
+        <g fill="#e0b44c"><circle cx="57" cy="116" r="3" /><path d="M51 121 H63 L60 130 H54 Z" /><circle cx="143" cy="116" r="3" /><path d="M137 121 H149 L146 130 H140 Z" /></g>
+      </g>
+      <!-- veil border -->
+      <path d="M100 22 C42 22 24 70 28 124 C31 166 20 198 14 220 M100 22 C158 22 176 70 172 124 C169 166 180 198 186 220" fill="none" stroke="#ecd08a" stroke-width="5" stroke-dasharray="0.1 9" stroke-linecap="round" />
+    </symbol>
+    <!-- Groom: saffron safa with kalgi, ivory sherwani, clean-shaven — gaze to the left (towards the bride) -->
+    <symbol id="groom" viewBox="0 0 200 220">
+      <!-- sherwani -->
+      <path d="M36 220 C40 188 66 170 100 170 C134 170 160 188 164 220 Z" fill="#f6e7c4" />
+      <path d="M100 174 V220" stroke="#c9a24a" stroke-width="2" />
+      <g fill="#c9a24a"><circle cx="100" cy="190" r="2.6" /><circle cx="100" cy="203" r="2.6" /><circle cx="100" cy="216" r="2.6" /></g>
+      <path d="M86 170 L100 182 L114 170" fill="none" stroke="#c9a24a" stroke-width="3" stroke-linejoin="round" />
+      <!-- maroon stole over the shoulder -->
+      <path d="M126 172 C146 176 160 192 164 220 H142 C138 200 130 186 118 178 Z" fill="#7a1729" />
+      <path d="M126 172 C146 176 160 192 164 220" fill="none" stroke="#e8c873" stroke-width="2.5" />
+      <!-- pearl mala -->
+      <path d="M82 174 C86 200 114 200 118 174" fill="none" stroke="#fffaf1" stroke-width="4" stroke-dasharray="0.1 6" stroke-linecap="round" />
+      <!-- neck -->
+      <path d="M88 140 H112 V172 C106 177 94 177 88 172 Z" fill="#d89c74" />
+      <g transform="rotate(-6 100 110)">
+        <!-- ears & short hair -->
+        <ellipse cx="57" cy="108" rx="7" ry="10" fill="#e2a982" /><ellipse cx="143" cy="108" rx="7" ry="10" fill="#e2a982" />
+        <!-- face -->
+        <ellipse cx="100" cy="104" rx="43" ry="44" fill="#e9b48c" />
+        <path d="M58 98 C58 90 60 84 64 82 L66 104 C62 103 59 101 58 98 Z M142 98 C142 90 140 84 136 82 L134 104 C138 103 141 101 142 98 Z" fill="#241510" />
+        <!-- safa -->
+        <path d="M52 84 C46 44 74 18 104 18 C136 18 156 44 148 84 C132 72 118 70 100 70 C82 70 66 72 52 84 Z" fill="#eda93c" />
+        <path d="M52 84 C66 72 82 70 100 70 C118 70 132 72 148 84" fill="none" stroke="#c97f1c" stroke-width="4" stroke-linecap="round" />
+        <path d="M56 64 C78 52 122 48 148 62 M64 46 C86 34 118 32 138 42" fill="none" stroke="#c97f1c" stroke-width="3" stroke-linecap="round" />
+        <path d="M54 74 C76 62 124 60 148 72" fill="none" stroke="#fbd27a" stroke-width="2" />
+        <!-- kalgi -->
+        <path d="M100 54 C95 38 101 18 112 8 C110 24 108 40 104 54 Z" fill="#fffaf1" stroke="#e8c873" stroke-width="1.2" />
+        <circle cx="100" cy="58" r="7" fill="#e0b44c" /><circle cx="100" cy="58" r="3.4" fill="#2f6b3a" />
+        <path d="M94 64 C92 72 96 76 100 76 C104 76 108 72 106 64" fill="none" stroke="#fffaf1" stroke-width="2.4" stroke-dasharray="0.1 4" stroke-linecap="round" />
+        <!-- brows -->
+        <path d="M72 93 C77 89 86 89 90 92" fill="none" stroke="#241510" stroke-width="3.2" stroke-linecap="round" />
+        <path d="M110 92 C114 89 123 89 128 93" fill="none" stroke="#241510" stroke-width="3.2" stroke-linecap="round" />
+        <!-- big sparkly eyes looking left -->
+        <circle cx="82" cy="108" r="9" fill="#fff" /><circle cx="118" cy="108" r="9" fill="#fff" />
+        <circle cx="79" cy="109" r="6.6" fill="#2b1a14" /><circle cx="115" cy="109" r="6.6" fill="#2b1a14" />
+        <circle cx="81" cy="106" r="2.4" fill="#fff" /><circle cx="117" cy="106" r="2.4" fill="#fff" />
+        <circle cx="77" cy="112" r="1.1" fill="#fff" /><circle cx="113" cy="112" r="1.1" fill="#fff" />
+        <path d="M73 103 C77 98 87 98 91 102 M109 102 C113 98 123 98 127 103" fill="none" stroke="#24140f" stroke-width="2" stroke-linecap="round" />
+        <!-- tiny nose, cheeks & happy smile (clean-shaven) -->
+        <path d="M96 118 C98 120 100 120 102 118" fill="none" stroke="#bf7d58" stroke-width="1.8" stroke-linecap="round" />
+        <ellipse cx="71" cy="124" rx="8" ry="5" fill="#ff8a9a" opacity=".4" /><ellipse cx="129" cy="124" rx="8" ry="5" fill="#ff8a9a" opacity=".4" />
+        <path d="M88 128 C93 137 107 137 112 128 Z" fill="#8c2f39" stroke="#8c2f39" stroke-width="2" stroke-linejoin="round" />
+        <path d="M93 129.5 H107" stroke="#fff" stroke-width="2.2" stroke-linecap="round" />
+      </g>
+    </symbol>
+    <!-- Brass lantern -->
+    <symbol id="lantern" viewBox="0 0 40 100">
+      <path d="M13 6 H27 L25 12 H15 Z" fill="url(#goldLine)" />
+      <path d="M15 12 C4 22 4 52 15 62 H25 C36 52 36 22 25 12 Z" fill="url(#goldLine)" />
+      <path d="M15 12 C10 24 10 50 15 62 M25 12 C30 24 30 50 25 62 M20 12 V62" fill="none" stroke="#7a4f14" stroke-width=".9" opacity=".55" />
+      <ellipse cx="20" cy="37" rx="6" ry="9" fill="#fff1c2" opacity=".75" />
+      <path d="M16 62 H24 L22 68 H18 Z" fill="url(#goldLine)" />
+      <circle cx="20" cy="71" r="2.4" fill="#c2185b" />
+      <path d="M20 73 V86" stroke="#c2185b" stroke-width="1.6" />
+      <path d="M17 84 L20 98 L23 84 Z" fill="#c2185b" />
+    </symbol>
+    <!-- Kalash with mango leaves and coconut -->
+    <symbol id="kalash" viewBox="0 0 80 84">
+      <g fill="#2f6b3a" stroke="#ecd08a" stroke-width=".8">
+        <path d="M40 34 C30 30 18 32 10 38 C20 40 30 38 40 34 Z" />
+        <path d="M40 34 C50 30 62 32 70 38 C60 40 50 38 40 34 Z" />
+        <path d="M40 34 C33 26 24 22 16 22 C22 30 31 33 40 34 Z" />
+        <path d="M40 34 C47 26 56 22 64 22 C58 30 49 33 40 34 Z" />
+      </g>
+      <circle cx="40" cy="22" r="10" fill="#8a5a2b" stroke="#ecd08a" stroke-width="1" />
+      <path d="M36 12 C38 6 42 6 44 12" fill="none" stroke="#ecd08a" stroke-width="1.2" />
+      <rect x="31" y="34" width="18" height="6" rx="1.5" fill="url(#goldLine)" />
+      <path d="M26 42 H54 C66 50 66 76 40 80 C14 76 14 50 26 42 Z" fill="url(#goldLine)" />
+      <path d="M21 56 C32 60 48 60 59 56" fill="none" stroke="#c2185b" stroke-width="3" />
+      <g fill="#7a1729"><circle cx="30" cy="66" r="1.6" /><circle cx="40" cy="68" r="1.6" /><circle cx="50" cy="66" r="1.6" /></g>
+    </symbol>
+    <!-- Lotus -->
+    <symbol id="lotus" viewBox="0 0 120 56">
+      <g fill="url(#goldLine)" stroke="#7a1729" stroke-width="1">
+        <path d="M60 50 C40 48 18 40 6 28 C26 26 46 34 60 50 Z" />
+        <path d="M60 50 C80 48 102 40 114 28 C94 26 74 34 60 50 Z" />
+        <path d="M60 50 C46 40 34 24 32 8 C48 16 58 32 60 50 Z" />
+        <path d="M60 50 C74 40 86 24 88 8 C72 16 62 32 60 50 Z" />
+        <path d="M60 50 C52 36 52 16 60 2 C68 16 68 36 60 50 Z" />
+      </g>
+      <path d="M30 52 H90" stroke="#ecd08a" stroke-width="1.2" stroke-linecap="round" />
+    </symbol>
+    <!-- Paisley (kairi) in fine gold line -->
+    <symbol id="paisley" viewBox="0 0 100 140">
+      <g fill="none" stroke="#ecd08a" stroke-linecap="round">
+        <path d="M40 134 C8 118 2 70 26 42 C44 20 78 16 88 38 C96 58 80 72 66 64 C56 58 60 44 70 46" stroke-width="2" />
+        <path d="M42 120 C18 106 16 74 32 54 C46 36 70 34 76 48 C80 58 72 64 66 60" stroke-width="1.2" stroke-dasharray="2 4" />
+        <path d="M44 104 C30 94 30 76 40 64 C48 54 60 54 62 62" stroke-width="1.2" />
+      </g>
+      <g fill="#ecd08a"><circle cx="48" cy="86" r="3" /><circle cx="40" cy="76" r="2" /><circle cx="54" cy="74" r="2" /></g>
+    </symbol>
+    <symbol id="om" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="2" />
+      <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 4" />
+      <text x="50" y="66" text-anchor="middle" font-size="46" fill="currentColor" font-family="Tiro Devanagari Hindi, serif">ॐ</text>
+    </symbol>
+  </svg>
+
+  <script src="config.js?v=202611161942"></script>
+  <script src="script.js?v=202611161942"></script>
+</body>
+</html>
