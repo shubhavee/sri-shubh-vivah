@@ -43,6 +43,7 @@
             ${e.hindi ? `<p class="hindi">${esc(e.hindi)}</p>` : ""}
             <h4>${esc(e.name)}</h4>
             ${e.dress ? `<p class="dress"><span>Dress code</span> ${esc(e.dress)}</p>` : ""}
+            ${e.note ? `<p class="dress"><span>Please note</span> ${esc(e.note)}</p>` : ""}
           </div>
         </li>`).join("")}
       </ol>
@@ -291,7 +292,7 @@
       $("#doneText").innerHTML = `Thank you for letting us know, ${first}. Your blessings mean the world to us.`;
     } else {
       $("#doneTitle").textContent = "Yay! See you in Bengaluru 🎉";
-      $("#doneText").innerHTML = `Thank you, ${first}! We've received your RSVP. ${INVITE === "full" ? "Our wedding planner will get in touch closer to the date about your travel and stay." : "We can't wait to celebrate with you."}`;
+      $("#doneText").innerHTML = `Thank you, ${first}! We've received your RSVP. ${INVITE === "full" ? "Our wedding planner will get in touch closer to the date about your travel and stay. Please remember to carry an Aadhaar card for every guest for hotel check-in." : "We can't wait to celebrate with you."}`;
       if (!reduced) burst(60);
     }
     $("#doneText").insertAdjacentHTML("beforeend", "<br><br>Need to change your answer? Just submit the form again with the same number.");

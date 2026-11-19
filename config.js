@@ -50,12 +50,13 @@ window.WEDDING = {
   //   side: "bride" / "groom" — only on that family's invitations (leave out for both)
   //   day: true               — also on the 18-Jan-only invitations
   //   dress                   — optional dress code
+  //   note                    — optional short note under the event
   //   rsvp (per day)          — whether guests tick that day in the RSVP form
   days: [
     {
       label: "Day One", date: "Sunday, 17 January 2027", short: "Sun, 17 Jan", key: "17 Jan", rsvp: true,
       events: [
-        { name: "Check-in", hindi: "आगमन", time: "9:00 AM" },
+        { name: "Check-in", hindi: "आगमन", time: "9:00 AM", note: "Please carry an Aadhaar card for every guest — needed at hotel check-in." },
         { name: "Lagan", hindi: "लगन", time: "11:00 AM", side: "bride" },
         { name: "Haldi", hindi: "हल्दी", time: "1:00 PM", dress: "Shades of yellow" },
         { name: "Sangeet", hindi: "संगीत", time: "7:00 PM" },
