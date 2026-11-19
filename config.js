@@ -27,16 +27,14 @@ window.WEDDING = {
 
   hashtag: "#SriShubhVivah",
 
-  // Phere — drives the countdown. Keep the +05:30 (IST).
-  weddingDate: "2027-01-18T16:30:00+05:30",
-
   hosts: {
     bride: { label: "Bride's side", invocation: "॥ श्री महावीराय नमः ॥" },
     groom: { label: "Groom's side", invocation: "॥ श्री गणेशाय नमः ॥" },
   },
   invites: {
-    full: { label: "17–18 Jan (with stay)", displayDate: "17 – 18 January 2027", aadhaar: true },
-    day: { label: "18 Jan only", displayDate: "18 January 2027", aadhaar: false },
+    // countdownTo: when the countdown reaches zero. Keep the +05:30 (IST).
+    full: { label: "17–18 Jan (with stay)", displayDate: "17 – 18 January 2027", countdownTo: "2027-01-17T00:01:00+05:30", aadhaar: true },
+    day: { label: "18 Jan only", displayDate: "18 January 2027", countdownTo: "2027-01-18T00:01:00+05:30", aadhaar: false },
   },
 
   venue: {

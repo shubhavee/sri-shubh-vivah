@@ -88,7 +88,7 @@
   document.querySelectorAll(".day, .family-card").forEach((el) => io.observe(el));
 
   /* ---------- Countdown ---------- */
-  const target = new Date(W.weddingDate).getTime();
+  const target = new Date(invite.countdownTo).getTime();
   const pad = (n) => String(n).padStart(2, "0");
   const tick = () => {
     const ms = Math.max(0, target - Date.now());
