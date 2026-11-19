@@ -289,7 +289,6 @@ small { color: var(--muted); font-size: .8em; }
 .pills span { display: block; padding: 8px 14px; border: 1px solid #dcc79a; border-radius: 999px; font-family: var(--serif); font-size: .95rem; letter-spacing: 0; color: var(--ink); background: #fff; transition: all .2s; }
 .pills input:checked + span { background: #fdf0cf; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,162,74,.3); }
 .pills input:focus-visible + span { outline: 2px solid var(--maroon); }
-.leg .row { gap: 10px; }
 .form input[type="time"] { min-height: 48px; }
 .hint { text-align: center; margin: -6px 0 0; color: var(--muted); font-size: .9rem; font-style: italic; }
 .choice-btn.side input:checked + span { background: #fdf0cf; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,162,74,.3); }
