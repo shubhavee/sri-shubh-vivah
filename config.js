@@ -64,7 +64,7 @@ window.WEDDING = {
     {
       label: "Day Two", dayOnlyLabel: "The Wedding Day", date: "Monday, 18 January 2027", short: "Mon, 18 Jan", key: "18 Jan", rsvp: true,
       events: [
-        { name: "Grit Dhaari", hindi: "", time: "8:00 AM", side: "groom" },
+        { name: "Grit Dhaari", hindi: "घृतढारी", time: "8:00 AM", side: "groom" },
         { name: "Bhaat", hindi: "भात", time: "9:00 AM", side: "bride" },
         { name: "Baraat", hindi: "बारात", time: "12:00 PM", side: "groom" },
         { name: "Baraat Swagat", hindi: "बारात स्वागत", time: "1:30 PM", side: "bride" },
