@@ -1,11 +1,15 @@
 (() => {
   const W = window.WEDDING;
   const SCRIPT_URL = document.currentScript.src; // asset paths resolve relative to this script
-  // Which invitation this page is: the 18-Jan-only copy sets <html data-invite="day">.
+  // Which of the four invitations this page is (set on <html> by tools/build-variants.sh).
+  const HOST = document.documentElement.dataset.side === "bride" ? "bride" : "groom";
   const INVITE = document.documentElement.dataset.invite === "day" ? "day" : "full";
-  const invite = W.invites[INVITE];
+  const host = W.hosts[HOST], invite = W.invites[INVITE];
   W.displayDate = invite.displayDate;
-  const days = W.days.filter((d) => d.invites.includes(INVITE));
+  W.invocation = host.invocation;
+  // Keep events meant for this family and this invitation; drop days left empty.
+  const showEvent = (e) => (!e.side || e.side === HOST) && (INVITE === "full" || e.day);
+  const days = W.days.map((d) => ({ ...d, events: d.events.filter(showEvent) })).filter((d) => d.events.length);
   const rsvpDays = days.filter((d) => d.rsvp);
   const $ = (s, el = document) => el.querySelector(s);
   const get = (path) => path.split(".").reduce((o, k) => (o ? o[k] : undefined), W);
@@ -19,7 +23,8 @@
   // "Daughter of / Mrs. … / & / Mr. …", one name per line.
   document.querySelectorAll("[data-parents]").forEach((el) => {
     const p = W[el.dataset.parents];
-    el.innerHTML = `<span class="rel">${esc(p.relation)}</span>` + p.parents.map((n) => `<span>${esc(n)}</span>`).join('<span class="amp">&amp;</span>');
+    const names = HOST === "bride" ? p.parentsOnBrideSide : p.parents;
+    el.innerHTML = `<span class="rel">${esc(p.relation)}</span>` + names.map((n) => `<span>${esc(n)}</span>`).join('<span class="amp">&amp;</span>');
   });
   $("#mapFrame").src = W.venue.mapsEmbed;
   $("#mapsLink").href = W.venue.mapsLink;
@@ -33,9 +38,9 @@
       <ol class="timeline">
         ${day.events.map((e) => `
         <li>
-          <div class="t-when"><span class="t-period">${esc(e.period)}</span><span class="t-time">${esc(e.time)}</span></div>
+          <div class="t-when"><span class="t-time">${esc(e.time)}</span></div>
           <div class="t-what">
-            <p class="hindi">${esc(e.hindi)}</p>
+            ${e.hindi ? `<p class="hindi">${esc(e.hindi)}</p>` : ""}
             <h4>${esc(e.name)}</h4>
             ${e.dress ? `<p class="dress"><span>Dress code</span> ${esc(e.dress)}</p>` : ""}
           </div>
@@ -49,7 +54,7 @@
   $("#daysField").hidden = rsvpDays.length < 2;
   const sideNumber = (side) => (digits(side.whatsapp).length >= 10 ? side.whatsapp : W.rsvp.fallbackNumber);
 
-  $("#contactList").innerHTML = W.contacts.map((g) => `
+  $("#contactList").innerHTML = W.contacts.filter((g) => !g.host || g.host === HOST).map((g) => `
     <div class="contact-group">
       <p class="role">${esc(g.side)}</p>
       ${g.people.map((c) => `
@@ -212,13 +217,62 @@
   /* ---------- RSVP (saved straight to the Google Sheet) ---------- */
   const rsvpForm = $("#rsvpForm");
 
-  // "Chat with Srishti / Shubham" buttons for guests with questions.
-  const chatButtons = (cls) => W.rsvp.sides.map((side) =>
+  // "Chat with Srishti" (bride's side) or "Chat with Shubham" (groom's side) for guests with questions.
+  const chatButtons = (cls) => W.rsvp.sides.filter((side) => side.host === HOST).map((side) =>
     linkBtn(`Chat with ${side.name} on WhatsApp`, waLink(sideNumber(side), `Hi ${side.name}! I have a question about the wedding:`), cls));
   $("#coupleChat").append(...chatButtons("btn-wa"));
 
+  // Number of guests, a name for each extra guest, and optional documents per person.
+  const people = () => {
+    const n = Number($("#guestCount").value) || 1;
+    return Array.from({ length: n }, (_, i) => (i === 0 ? "Main guest" : `Guest ${i + 1}`));
+  };
+  $("#guestCount").innerHTML = Array.from({ length: W.rsvp.maxGuests }, (_, i) => `<option>${i + 1}</option>`).join("");
+  $("#docsNote").textContent = invite.aadhaar
+    ? "Upload each person's travel ticket and Aadhaar card (needed for the hotel). PDF or photo."
+    : "Upload each person's travel ticket. PDF or photo.";
+  const kinds = invite.aadhaar ? ["Ticket", "Aadhaar"] : ["Ticket"];
+  function renderPeople() {
+    const keep = (name) => rsvpForm.elements[name]?.value || "";
+    const list = people();
+    $("#guestNames").innerHTML = list.slice(1).map((p, i) =>
+      `<label>${p}'s name<input name="guest${i + 2}" value="${esc(keep(`guest${i + 2}`))}" placeholder="Full name" /></label>`).join("");
+    // File inputs can't be re-filled, so only add/remove rows rather than rebuilding them.
+    const box = $("#docUploads");
+    [...box.children].forEach((row) => { if (!list.includes(row.dataset.person)) row.remove(); });
+    list.forEach((p) => {
+      if (box.querySelector(`[data-person="${p}"]`)) return;
+      const row = document.createElement("div");
+      row.className = "doc-row"; row.dataset.person = p;
+      row.innerHTML = `<p class="doc-who">${p === "Main guest" ? "You" : p}</p>` + kinds.map((k) =>
+        `<label class="file">${k}<input type="file" accept=".pdf,image/*" data-column="${k} (${p})" /></label>`).join("");
+      box.append(row);
+    });
+  }
+  renderPeople();
+  $("#guestCount").addEventListener("change", renderPeople);
+
   rsvpForm.addEventListener("change", (e) => {
     if (e.target.name === "attending") rsvpForm.classList.toggle("attending-yes", e.target.value === "Yes");
+  });
+
+  // Photos are shrunk before upload (phone pictures are often 3–5 MB); PDFs go as they are.
+  async function shrink(file) {
+    if (!file.type.startsWith("image/") || file.size < 800e3) return file;
+    try {
+      const img = await createImageBitmap(file);
+      const scale = Math.min(1, 1800 / Math.max(img.width, img.height));
+      const c = document.createElement("canvas");
+      c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      const blob = await new Promise((res) => c.toBlob(res, "image/jpeg", 0.85));
+      return blob ? new File([blob], file.name.replace(/\.\w+$/, "") + ".jpg", { type: "image/jpeg" }) : file;
+    } catch { return file; }
+  }
+  const toBase64 = (file) => new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(String(r.result).split(",")[1]);
+    r.onerror = rej; r.readAsDataURL(file);
   });
 
   rsvpForm.addEventListener("submit", async (e) => {
@@ -234,13 +288,27 @@
       : [...rsvpForm.querySelectorAll('input[name="days"]:checked')].map((c) => c.value);
     d.days = d.attending === "Yes" ? picked : [];
     d.invite = invite.label;
-    if (d.attending === "No") { delete d.guests; delete d.from; }
+    d.side = host.label;
     d.name = d.name.trim();
+    const files = d.attending === "Yes"
+      ? [...$("#docUploads").querySelectorAll('input[type="file"]')].filter((i) => i.files[0]).map((i) => ({ column: i.dataset.column, file: i.files[0] }))
+      : [];
+    if (d.attending === "No") { delete d.guests; delete d.from; delete d.guest2; delete d.guest3; delete d.guest4; }
+    for (const f of files) {
+      if (f.file.type === "application/pdf" && f.file.size > 5 * 1024 * 1024)
+        return (status.textContent = `${f.column.replace("Main guest", "your")} PDF is over 5 MB — please upload a photo or smaller file instead.`);
+    }
 
     const btn = $("#rsvpSubmit");
     btn.disabled = true; status.textContent = "Sending…";
     try {
       await sendToSheet({ type: "rsvp", ...d });
+      // Each document goes separately (after the RSVP row exists) so no single request gets too big.
+      for (const [i, f] of files.entries()) {
+        status.textContent = `Uploading documents (${i + 1} of ${files.length})…`;
+        const file = await shrink(f.file);
+        await sendToSheet({ type: "file", phone: d.phone, name: d.name, column: f.column, fileName: file.name, fileType: file.type, fileData: await toBase64(file) });
+      }
     } catch {
       btn.disabled = false;
       return (status.textContent = "Couldn't send. Please check your internet connection and try again.");

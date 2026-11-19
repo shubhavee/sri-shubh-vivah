@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-invite="day">
+<html lang="en" data-side="groom" data-invite="day">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,13 +7,13 @@
   <meta name="description" content="You are invited to celebrate our wedding in Bengaluru." />
   <!-- Link preview when shared on WhatsApp -->
   <meta property="og:title" content="You're invited to our wedding" />
-  <meta property="og:description" content="Delhi ❤ Bihar · Bengaluru · Tap to open your invitation" />
+  <meta property="og:description" content="Delhi ❤ Mumbai · Bengaluru · Tap to open your invitation" />
   <meta property="og:image" content="assets/preview.jpg" />
   <meta name="theme-color" content="#5c0f1f" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Marcellus&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=202611161950" />
+  <link rel="stylesheet" href="styles.css?v=202611191633" />
 </head>
 <body>
 
@@ -35,7 +35,7 @@
     <svg class="paisley pr" viewBox="0 0 100 140" aria-hidden="true"><use href="#paisley" /></svg>
     <div class="intro-card">
       <svg class="kalash" viewBox="0 0 80 84" aria-hidden="true"><use href="#kalash" /></svg>
-      <p class="invocation">॥ श्री गणेशाय नमः ॥</p>
+      <p class="invocation" data-bind="invocation"></p>
       <svg class="ganesh" viewBox="0 0 100 100" aria-hidden="true"><use href="#om" /></svg>
       <p class="intro-small">Together with their families</p>
       <h1 class="intro-names"><span data-bind="bride.name"></span> <span class="amp">&amp;</span> <span data-bind="groom.name"></span></h1>
@@ -98,16 +98,16 @@
       <p class="poem-hi">
         सात फेरों का ये पावन बंधन,<br />
         दो परिवारों का प्यारा संगम।<br />
-        दिल्ली की ख़ुशबू, बिहार का प्यार,<br />
+        दिल्ली की ख़ुशबू, मुंबई का प्यार,<br />
         सजे बेंगलुरु में ये शुभ त्योहार॥
       </p>
       <p class="poem-en">Seven sacred rounds, one pure bond; two families, one loving union.<br />
-        The fragrance of Delhi, the warmth of Bihar: a celebration of joy in Bengaluru.</p>
+        The fragrance of Delhi, the warmth of Mumbai: a celebration of joy in Bengaluru.</p>
     </section>
 
     <!-- ===== Families ===== -->
     <section class="section families">
-      <p class="eyebrow">Dilli meets Bihar</p>
+      <p class="eyebrow">Dilli meets Mumbai</p>
       <h2>Two families, one celebration</h2>
       <div class="divider" aria-hidden="true"></div>
       <div class="family-grid">
@@ -132,7 +132,7 @@
         </article>
       </div>
       <p class="blurb">
-        Delhi's chaat and Bihar's litti chokha are coming together in the Garden City.
+        Delhi's chaat and Mumbai's vada pav are coming together in the Garden City.
         Join us in Bengaluru for days full of rituals, music, food and love.
       </p>
       <p class="hashtag" data-bind="hashtag"></p>
@@ -158,7 +158,7 @@
 
     <!-- ===== RSVP ===== -->
     <section class="section rsvp" id="rsvp">
-      <h2>Will you join us?</h2>
+      <h2>Will you be celebrating with us?</h2>
       <div class="divider" aria-hidden="true"></div>
 
       <form id="rsvpForm" class="card form" novalidate>
@@ -172,13 +172,19 @@
 
         <div class="if-yes">
           <label>Number of guests (including you)
-            <select name="guests"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6+</option></select>
+            <select name="guests" id="guestCount"></select>
           </label>
+          <div id="guestNames" class="guest-names"></div>
           <fieldset id="daysField">
             <legend>Which days will you attend?</legend>
             <div id="eventChecks" class="checks"></div>
           </fieldset>
           <label>Travelling from<input name="from" placeholder="City" /></label>
+          <fieldset class="docs">
+            <legend>Travel documents <small>(optional — you can also send them to Divya later)</small></legend>
+            <p class="docs-note" id="docsNote"></p>
+            <div id="docUploads" class="doc-list"></div>
+          </fieldset>
         </div>
         <label>Message for the couple <small>(optional)</small><textarea name="message" rows="2"></textarea></label>
 
@@ -375,7 +381,7 @@
     </symbol>
   </svg>
 
-  <script src="config.js?v=202611161950"></script>
-  <script src="script.js?v=202611161950"></script>
+  <script src="config.js?v=202611191633"></script>
+  <script src="script.js?v=202611191633"></script>
 </body>
 </html>
