@@ -299,7 +299,7 @@ small { color: var(--muted); font-size: .8em; }
 
 /* ---------- Contacts ---------- */
 .couple-chat { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 0 auto 28px; }
-.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; max-width: 900px; margin: 0 auto; }
+.contact-grid { max-width: 440px; margin: 0 auto; }
 .contact-group { background: var(--paper); border-radius: var(--radius); padding: 22px; box-shadow: 0 10px 28px rgba(92,15,31,.08); border-top: 3px solid var(--gold); }
 .contact-group .role { margin: 0 0 6px; font-family: var(--script); font-size: 1.7rem; color: var(--maroon); letter-spacing: 0; text-transform: none; }
 .contact { padding: 12px 0; }

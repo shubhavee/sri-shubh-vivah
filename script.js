@@ -55,10 +55,10 @@
   $("#daysField").hidden = rsvpDays.length < 2;
   const sideNumber = (side) => (digits(side.whatsapp).length >= 10 ? side.whatsapp : W.rsvp.fallbackNumber);
 
-  $("#contactList").innerHTML = W.contacts.filter((g) => !g.host || g.host === HOST).map((g) => `
+  // One card: each invitation only lists its own family plus the planner, so no side headings needed.
+  $("#contactList").innerHTML = `
     <div class="contact-group">
-      <p class="role">${esc(g.side)}</p>
-      ${g.people.map((c) => `
+      ${W.contacts.filter((g) => !g.host || g.host === HOST).flatMap((g) => g.people).map((c) => `
       <div class="contact">
         <h3>${esc(c.name)}</h3>
         <p class="relation">${esc(c.relation)}</p>
@@ -67,7 +67,7 @@
           ${digits(c.phone).length >= 10 ? `<a href="https://wa.me/${esc(digits(c.phone))}" target="_blank" rel="noopener">WhatsApp</a>` : ""}
         </p>
       </div>`).join("")}
-    </div>`).join("");
+    </div>`;
 
   /* ---------- Hero mandala (fine gold line-art, built from repeated petals) ---------- */
   (() => {

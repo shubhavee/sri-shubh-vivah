@@ -103,8 +103,11 @@ window.WEDDING = {
     },
   },
 
-  // Points of contact. host: "bride" / "groom" shows a group only on that family's invitations.
+  // Points of contact, shown in this order as one list. host: "bride" / "groom" shows a group only on that family's invitations.
   contacts: [
+    { side: "Wedding planner", people: [
+      { name: "Divya", relation: "Wedding planner · Travel & stay", phone: "+91 97390 16719" },
+    ] },
     { side: "Bride's side", host: "bride", people: [
       { name: "Kamlesh Kumar Jain", relation: "Father of the bride", phone: "+91 98111 17276" },
       { name: "Kanishk Jain", relation: "Brother of the bride", phone: "+91 83830 34996" },
@@ -112,9 +115,6 @@ window.WEDDING = {
     { side: "Groom's side", host: "groom", people: [
       { name: "Surendra Prasad", relation: "Father of the groom", phone: "+91 77380 12309" },
       { name: "Shubhika Shubhavee", relation: "Sister of the groom", phone: "+91 77388 36237" },
-    ] },
-    { side: "Wedding planner", people: [
-      { name: "Divya", relation: "Travel & stay", phone: "+91 97390 16719" },
     ] },
   ],
 
