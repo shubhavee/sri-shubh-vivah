@@ -210,7 +210,7 @@
   }
   const formData = (form) => {
     const fd = new FormData(form), out = {};
-    for (const [k, v] of fd) if (!(v instanceof File)) out[k] = out[k] ? `${out[k]}, ${v}` : v;
+    for (const [k, v] of fd) out[k] = out[k] ? `${out[k]}, ${v}` : v;
     return out;
   };
 
@@ -222,57 +222,32 @@
     linkBtn(`Chat with ${side.name} on WhatsApp`, waLink(sideNumber(side), `Hi ${side.name}! I have a question about the wedding:`), cls));
   $("#coupleChat").append(...chatButtons("btn-wa"));
 
-  // Number of guests, a name for each extra guest, and optional documents per person.
-  const people = () => {
-    const n = Number($("#guestCount").value) || 1;
-    return Array.from({ length: n }, (_, i) => (i === 0 ? "Main guest" : `Guest ${i + 1}`));
-  };
+  // Number of guests and a name for each extra guest.
   $("#guestCount").innerHTML = Array.from({ length: W.rsvp.maxGuests }, (_, i) => `<option>${i + 1}</option>`).join("");
-  $("#docsNote").textContent = invite.aadhaar
-    ? "Upload each person's travel ticket and Aadhaar card (needed for the hotel). PDF or photo."
-    : "Upload each person's travel ticket. PDF or photo.";
-  const kinds = invite.aadhaar ? ["Ticket", "Aadhaar"] : ["Ticket"];
   function renderPeople() {
     const keep = (name) => rsvpForm.elements[name]?.value || "";
-    const list = people();
-    $("#guestNames").innerHTML = list.slice(1).map((p, i) =>
-      `<label>${p}'s name<input name="guest${i + 2}" value="${esc(keep(`guest${i + 2}`))}" placeholder="Full name" /></label>`).join("");
-    // File inputs can't be re-filled, so only add/remove rows rather than rebuilding them.
-    const box = $("#docUploads");
-    [...box.children].forEach((row) => { if (!list.includes(row.dataset.person)) row.remove(); });
-    list.forEach((p) => {
-      if (box.querySelector(`[data-person="${p}"]`)) return;
-      const row = document.createElement("div");
-      row.className = "doc-row"; row.dataset.person = p;
-      row.innerHTML = `<p class="doc-who">${p === "Main guest" ? "You" : p}</p>` + kinds.map((k) =>
-        `<label class="file">${k}<input type="file" accept=".pdf,image/*" data-column="${k} (${p})" /></label>`).join("");
-      box.append(row);
-    });
+    const n = Number($("#guestCount").value) || 1;
+    $("#guestNames").innerHTML = Array.from({ length: n - 1 }, (_, i) =>
+      `<label>Guest ${i + 2}'s name<input name="guest${i + 2}" value="${esc(keep(`guest${i + 2}`))}" placeholder="Full name" /></label>`).join("");
   }
   renderPeople();
   $("#guestCount").addEventListener("change", renderPeople);
 
+  // Arrival / departure: tap-to-pick date and mode (data-pills="fieldName:listInConfig").
+  document.querySelectorAll("[data-pills]").forEach((box) => {
+    const [name, list] = box.dataset.pills.split(":");
+    box.innerHTML = W.rsvp.travel[list].map((o) =>
+      `<label><input type="radio" name="${name}" value="${esc(o.key)}" /><span>${esc(o.label)}</span></label>`).join("");
+  });
+  // "14:30" → "2:30 PM"
+  const time12 = (t) => {
+    if (!t) return "";
+    const [h, m] = t.split(":").map(Number);
+    return `${h % 12 || 12}:${String(m).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
+  };
+
   rsvpForm.addEventListener("change", (e) => {
     if (e.target.name === "attending") rsvpForm.classList.toggle("attending-yes", e.target.value === "Yes");
-  });
-
-  // Photos are shrunk before upload (phone pictures are often 3–5 MB); PDFs go as they are.
-  async function shrink(file) {
-    if (!file.type.startsWith("image/") || file.size < 800e3) return file;
-    try {
-      const img = await createImageBitmap(file);
-      const scale = Math.min(1, 1800 / Math.max(img.width, img.height));
-      const c = document.createElement("canvas");
-      c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
-      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
-      const blob = await new Promise((res) => c.toBlob(res, "image/jpeg", 0.85));
-      return blob ? new File([blob], file.name.replace(/\.\w+$/, "") + ".jpg", { type: "image/jpeg" }) : file;
-    } catch { return file; }
-  }
-  const toBase64 = (file) => new Promise((res, rej) => {
-    const r = new FileReader();
-    r.onload = () => res(String(r.result).split(",")[1]);
-    r.onerror = rej; r.readAsDataURL(file);
   });
 
   rsvpForm.addEventListener("submit", async (e) => {
@@ -290,25 +265,14 @@
     d.invite = invite.label;
     d.side = host.label;
     d.name = d.name.trim();
-    const files = d.attending === "Yes"
-      ? [...$("#docUploads").querySelectorAll('input[type="file"]')].filter((i) => i.files[0]).map((i) => ({ column: i.dataset.column, file: i.files[0] }))
-      : [];
-    if (d.attending === "No") { delete d.guests; delete d.from; delete d.guest2; delete d.guest3; delete d.guest4; }
-    for (const f of files) {
-      if (f.file.type === "application/pdf" && f.file.size > 5 * 1024 * 1024)
-        return (status.textContent = `${f.column.replace("Main guest", "your")} PDF is over 5 MB — please upload a photo or smaller file instead.`);
-    }
+    d.arrivalTime = time12(d.arrivalTime);
+    d.departureTime = time12(d.departureTime);
+    if (d.attending === "No") for (const k of Object.keys(d)) if (!["attending", "name", "phone", "message", "days", "invite", "side"].includes(k)) delete d[k];
 
     const btn = $("#rsvpSubmit");
     btn.disabled = true; status.textContent = "Sending…";
     try {
       await sendToSheet({ type: "rsvp", ...d });
-      // Each document goes separately (after the RSVP row exists) so no single request gets too big.
-      for (const [i, f] of files.entries()) {
-        status.textContent = `Uploading documents (${i + 1} of ${files.length})…`;
-        const file = await shrink(f.file);
-        await sendToSheet({ type: "file", phone: d.phone, name: d.name, column: f.column, fileName: file.name, fileType: file.type, fileData: await toBase64(file) });
-      }
     } catch {
       btn.disabled = false;
       return (status.textContent = "Couldn't send. Please check your internet connection and try again.");

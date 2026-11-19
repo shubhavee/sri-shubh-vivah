@@ -33,8 +33,8 @@ window.WEDDING = {
   },
   invites: {
     // countdownTo: when the countdown reaches zero. Keep the +05:30 (IST).
-    full: { label: "17–18 Jan (with stay)", displayDate: "17 – 18 January 2027", countdownTo: "2027-01-17T00:01:00+05:30", aadhaar: true },
-    day: { label: "18 Jan only", displayDate: "18 January 2027", countdownTo: "2027-01-18T00:01:00+05:30", aadhaar: false },
+    full: { label: "17–18 Jan (with stay)", displayDate: "17 – 18 January 2027", countdownTo: "2027-01-17T00:01:00+05:30" },
+    day: { label: "18 Jan only", displayDate: "18 January 2027", countdownTo: "2027-01-18T00:01:00+05:30" },
   },
 
   venue: {
@@ -66,9 +66,9 @@ window.WEDDING = {
       events: [
         { name: "Grit Dhaari", hindi: "घृतढारी", time: "8:00 AM", side: "groom" },
         { name: "Bhaat", hindi: "भात", time: "9:00 AM", side: "bride" },
-        { name: "Baraat", hindi: "बारात", time: "12:00 PM", side: "groom" },
-        { name: "Baraat Swagat", hindi: "बारात स्वागत", time: "1:30 PM", side: "bride" },
-        { name: "Varmala", hindi: "वरमाला", time: "3:00 PM" },
+        { name: "Baraat", hindi: "बारात", time: "12:00 PM", side: "groom", day: true },
+        { name: "Baraat Swagat", hindi: "बारात स्वागत", time: "1:30 PM", side: "bride", day: true },
+        { name: "Varmala", hindi: "वरमाला", time: "3:00 PM", day: true },
         { name: "Phere", hindi: "फेरे", time: "4:30 PM", day: true },
         { name: "Reception", hindi: "स्वागत समारोह", time: "7:00 PM", day: true },
       ],
@@ -93,6 +93,12 @@ window.WEDDING = {
     // Google Apps Script Web App URL (see README.md, step 2) — every RSVP is saved in the Google Sheet.
     sheetEndpoint: "https://script.google.com/macros/s/AKfycbxXevmqaALIbCEW3Xc_FlMqs7lAH4VTy6siavBF8szm3Fv-phLzKGVqVaIFyKl3AzvJDw/exec",
     maxGuests: 4, // the guest plus up to 3 more, each named for room allotment
+    // Arrival / departure the guest can pick (all optional) — for Divya's pickups and drops.
+    travel: {
+      arrive: [{ key: "17 Jan", label: "Sun, 17 Jan" }, { key: "18 Jan", label: "Mon, 18 Jan" }],
+      leave: [{ key: "18 Jan", label: "Mon, 18 Jan" }, { key: "19 Jan", label: "Tue, 19 Jan" }],
+      modes: [{ key: "Flight", label: "✈️ Flight" }, { key: "Train", label: "🚆 Train" }, { key: "Road", label: "🚗 Road" }],
+    },
   },
 
   // Points of contact. host: "bride" / "groom" shows a group only on that family's invitations.

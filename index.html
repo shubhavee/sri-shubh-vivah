@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Marcellus&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=202611191800" />
+  <link rel="stylesheet" href="styles.css?v=202611192239" />
 </head>
 <body>
 
@@ -180,10 +180,26 @@
             <div id="eventChecks" class="checks"></div>
           </fieldset>
           <label>Travelling from<input name="from" placeholder="City" /></label>
-          <fieldset class="docs">
-            <legend>Travel documents <small>(optional — you can also send them to Divya later)</small></legend>
-            <p class="docs-note" id="docsNote"></p>
-            <div id="docUploads" class="doc-list"></div>
+          <fieldset class="travel">
+            <legend>Your travel <small>(optional — not booked yet? Submit again later with the same number)</small></legend>
+            <div class="leg">
+              <p class="leg-title">Arriving</p>
+              <div class="pills" data-pills="arrivalDate:arrive"></div>
+              <div class="row">
+                <label>Time<input type="time" name="arrivalTime" /></label>
+                <label>Flight / train no.<input name="arrivalNo" placeholder="e.g. 6E 2134" autocapitalize="characters" /></label>
+              </div>
+              <div class="pills" data-pills="arrivalBy:modes"></div>
+            </div>
+            <div class="leg">
+              <p class="leg-title">Leaving</p>
+              <div class="pills" data-pills="departureDate:leave"></div>
+              <div class="row">
+                <label>Time<input type="time" name="departureTime" /></label>
+                <label>Flight / train no.<input name="departureNo" placeholder="e.g. 6E 2135" autocapitalize="characters" /></label>
+              </div>
+              <div class="pills" data-pills="departureBy:modes"></div>
+            </div>
           </fieldset>
         </div>
         <label>Message for the couple <small>(optional)</small><textarea name="message" rows="2"></textarea></label>
@@ -381,7 +397,7 @@
     </symbol>
   </svg>
 
-  <script src="config.js?v=202611191800"></script>
-  <script src="script.js?v=202611191800"></script>
+  <script src="config.js?v=202611192239"></script>
+  <script src="script.js?v=202611192239"></script>
 </body>
 </html>
