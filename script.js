@@ -43,7 +43,7 @@
             ${e.hindi ? `<p class="hindi">${esc(e.hindi)}</p>` : ""}
             <h4>${esc(e.name)}</h4>
             ${e.dress ? `<p class="dress"><span>Dress code</span> ${esc(e.dress)}</p>` : ""}
-            ${e.note ? `<p class="dress"><span>Please note</span> ${esc(e.note)}</p>` : ""}
+            ${e.note ? `<p class="dress"><span>Note</span> ${esc(e.note)}</p>` : ""}
           </div>
         </li>`).join("")}
       </ol>
