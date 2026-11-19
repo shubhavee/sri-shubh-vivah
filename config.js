@@ -33,8 +33,9 @@ window.WEDDING = {
   },
   invites: {
     // countdownTo: when the countdown reaches zero. Keep the +05:30 (IST).
-    full: { label: "17–18 Jan (with stay)", displayDate: "17 – 18 January 2027", countdownTo: "2027-01-17T00:01:00+05:30" },
-    day: { label: "18 Jan only", displayDate: "18 January 2027", countdownTo: "2027-01-18T00:01:00+05:30" },
+    // travel: show the arrival/departure questions (when false the Sheet gets "N/A" in those columns).
+    full: { label: "17–18 Jan (with stay)", displayDate: "17 – 18 January 2027", countdownTo: "2027-01-17T00:01:00+05:30", travel: true },
+    day: { label: "18 Jan only", displayDate: "18 January 2027", countdownTo: "2027-01-18T00:01:00+05:30", travel: false },
   },
 
   venue: {

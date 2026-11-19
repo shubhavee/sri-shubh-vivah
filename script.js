@@ -235,6 +235,7 @@
   $("#guestCount").addEventListener("change", renderPeople);
 
   // Arrival / departure: tap-to-pick date and mode (data-pills="fieldName:listInConfig").
+  if (!invite.travel) $("fieldset.travel").remove();
   document.querySelectorAll("[data-pills]").forEach((box) => {
     const [name, list] = box.dataset.pills.split(":");
     box.innerHTML = W.rsvp.travel[list].map((o) =>
@@ -268,6 +269,7 @@
     d.name = d.name.trim();
     d.arrivalTime = time12(d.arrivalTime);
     d.departureTime = time12(d.departureTime);
+    if (!invite.travel) d.travelAsked = false;
     if (d.attending === "No") for (const k of Object.keys(d)) if (!["attending", "name", "phone", "message", "days", "invite", "side"].includes(k)) delete d[k];
 
     const btn = $("#rsvpSubmit");
