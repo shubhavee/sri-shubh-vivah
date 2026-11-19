@@ -66,9 +66,9 @@ window.WEDDING = {
       events: [
         { name: "Grit Dhaari", hindi: "", time: "8:00 AM", side: "groom" },
         { name: "Bhaat", hindi: "भात", time: "9:00 AM", side: "bride" },
-        { name: "Baraat", hindi: "बारात", time: "12:00 PM", side: "groom", day: true },
-        { name: "Baraat Swagat", hindi: "बारात स्वागत", time: "1:30 PM", side: "bride", day: true },
-        { name: "Varmala", hindi: "वरमाला", time: "3:00 PM", day: true },
+        { name: "Baraat", hindi: "बारात", time: "12:00 PM", side: "groom" },
+        { name: "Baraat Swagat", hindi: "बारात स्वागत", time: "1:30 PM", side: "bride" },
+        { name: "Varmala", hindi: "वरमाला", time: "3:00 PM" },
         { name: "Phere", hindi: "फेरे", time: "4:30 PM", day: true },
         { name: "Reception", hindi: "स्वागत समारोह", time: "7:00 PM", day: true },
       ],
