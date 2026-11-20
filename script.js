@@ -22,6 +22,11 @@
   document.querySelectorAll("[data-bind]").forEach((el) => { el.textContent = get(el.dataset.bind) ?? ""; });
   document.title = `${W.bride.name} & ${W.groom.name} · Wedding Invitation`;
   // "Daughter of / Mrs. … / & / Mr. …", one name per line.
+  // First name and surname on separate lines, so the names (and the text under them) can be larger.
+  document.querySelectorAll("[data-name]").forEach((el) => {
+    const [first, ...rest] = W[el.dataset.name].fullName.split(" ");
+    el.innerHTML = `<span>${esc(first)}</span> <span>${esc(rest.join(" "))}</span>`;
+  });
   document.querySelectorAll("[data-parents]").forEach((el) => {
     const p = W[el.dataset.parents];
     const names = HOST === "bride" ? p.parentsOnBrideSide : p.parents;
