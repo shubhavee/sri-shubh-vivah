@@ -203,7 +203,12 @@ small { color: var(--muted); font-size: .8em; }
 .family-card .parents .rel { font-size: .85em; opacity: .8; margin-bottom: 2px; }
 .family-card .parents .amp { font-family: var(--script); color: var(--gold-light); font-size: 1.2em; line-height: 1.1; font-style: normal; }
 .family-card .parents::before { content: ""; display: block; width: 18cqw; height: 1px; margin: 0 auto 3cqw; background: var(--gold); }
-.weds { font-family: var(--script); font-size: 2.6rem; color: var(--gold); padding: 0 6px; }
+.weds { font-family: var(--script); font-size: 2.6rem; color: var(--gold); padding: 0 6px; order: 2; }
+/* Bride | weds | groom, swapped on the groom's side */
+.family-card:first-of-type { order: 1; }
+.family-card:last-of-type { order: 3; }
+[data-side="groom"] .family-card:first-of-type { order: 3; }
+[data-side="groom"] .family-card:last-of-type { order: 1; }
 
 /* ---------- Poem ---------- */
 .poem { padding-bottom: 20px; }

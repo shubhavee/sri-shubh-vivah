@@ -19,8 +19,11 @@
   const waLink = (number, text) => `https://wa.me/${digits(number)}?text=${encodeURIComponent(text)}`;
 
   /* ---------- Fill in text from config ---------- */
+  // The inviting family's child is named first (Shubham & Srishti on the groom's side).
+  [W.first, W.second] = HOST === "groom" ? [W.groom, W.bride] : [W.bride, W.groom];
+  if (HOST === "groom") document.querySelectorAll("[data-groom]").forEach((el) => { el.textContent = el.dataset.groom; });
   document.querySelectorAll("[data-bind]").forEach((el) => { el.textContent = get(el.dataset.bind) ?? ""; });
-  document.title = `${W.bride.name} & ${W.groom.name} · Wedding Invitation`;
+  document.title = `${W.first.name} & ${W.second.name} · Wedding Invitation`;
   // "Daughter of / Mrs. … / & / Mr. …", one name per line.
   // First name and surname on separate lines, so the names (and the text under them) can be larger.
   document.querySelectorAll("[data-name]").forEach((el) => {

@@ -7,13 +7,13 @@
   <meta name="description" content="You are invited to celebrate our wedding in Bengaluru." />
   <!-- Link preview when shared on WhatsApp -->
   <meta property="og:title" content="You're invited to our wedding" />
-  <meta property="og:description" content="Delhi ❤ Mumbai · Bengaluru · Tap to open your invitation" />
+  <meta property="og:description" content="Mumbai ❤ Delhi · Bengaluru · Tap to open your invitation" />
   <meta property="og:image" content="assets/preview.jpg" />
   <meta name="theme-color" content="#5c0f1f" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Marcellus&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=202611201939" />
+  <link rel="stylesheet" href="styles.css?v=202611202007" />
 </head>
 <body>
 
@@ -38,7 +38,7 @@
       <p class="invocation" data-bind="invocation"></p>
       <svg class="ganesh" viewBox="0 0 100 100" aria-hidden="true"><use href="#om" /></svg>
       <p class="intro-small">Together with their families</p>
-      <h1 class="intro-names"><span data-bind="bride.name"></span> <span class="amp">&amp;</span> <span data-bind="groom.name"></span></h1>
+      <h1 class="intro-names"><span data-bind="first.name"></span> <span class="amp">&amp;</span> <span data-bind="second.name"></span></h1>
       <p class="intro-small">request the pleasure of your company</p>
       <button id="openInvite" class="btn btn-gold">Open Invitation</button>
       <svg class="lotus" viewBox="0 0 120 56" aria-hidden="true"><use href="#lotus" /></svg>
@@ -74,9 +74,9 @@
       <p class="invocation">॥ श्री शुभ विवाह ॥</p>
       <p class="eyebrow">The wedding of</p>
       <h1 class="names">
-        <span data-bind="bride.name"></span>
+        <span data-bind="first.name"></span>
         <span class="amp">&amp;</span>
-        <span data-bind="groom.name"></span>
+        <span data-bind="second.name"></span>
       </h1>
       <p class="date" data-bind="displayDate"></p>
       <p class="place">Bengaluru</p>
@@ -98,16 +98,16 @@
       <p class="poem-hi">
         सात फेरों का ये पावन बंधन,<br />
         दो परिवारों का प्यारा संगम।<br />
-        दिल्ली की ख़ुशबू, मुंबई का प्यार,<br />
+        <span data-groom="मुंबई की ख़ुशबू, दिल्ली का प्यार,">दिल्ली की ख़ुशबू, मुंबई का प्यार,</span><br />
         सजे बेंगलुरु में ये शुभ त्योहार॥
       </p>
       <p class="poem-en">Seven sacred rounds, one pure bond; two families, one loving union.<br />
-        The fragrance of Delhi, the warmth of Mumbai: a celebration of joy in Bengaluru.</p>
+        <span data-groom="The fragrance of Mumbai, the warmth of Delhi: a celebration of joy in Bengaluru.">The fragrance of Delhi, the warmth of Mumbai: a celebration of joy in Bengaluru.</span></p>
     </section>
 
     <!-- ===== Families ===== -->
     <section class="section families">
-      <p class="eyebrow">Dilli meets Mumbai</p>
+      <p class="eyebrow" data-groom="Mumbai meets Dilli">Dilli meets Mumbai</p>
       <h2>Two families, one celebration</h2>
       <div class="divider" aria-hidden="true"></div>
       <div class="family-grid">
@@ -132,7 +132,7 @@
         </article>
       </div>
       <p class="blurb">
-        Delhi's chaat and Mumbai's vada pav are coming together in the Garden City.
+        <span data-groom="Mumbai's vada pav and Delhi's chaat are coming together in the Garden City.">Delhi's chaat and Mumbai's vada pav are coming together in the Garden City.</span>
         <span data-bind="joinUs"></span>
       </p>
       <p class="hashtag" data-bind="hashtag"></p>
@@ -221,7 +221,7 @@
 
   <footer class="footer">
     <p class="script-line">With love &amp; blessings</p>
-    <p><span data-bind="bride.name"></span> &amp; <span data-bind="groom.name"></span> · <span data-bind="hashtag"></span></p>
+    <p><span data-bind="first.name"></span> &amp; <span data-bind="second.name"></span> · <span data-bind="hashtag"></span></p>
   </footer>
 
   <!-- Shared SVG symbols -->
@@ -391,7 +391,7 @@
     </symbol>
   </svg>
 
-  <script src="config.js?v=202611201939"></script>
-  <script src="script.js?v=202611201939"></script>
+  <script src="config.js?v=202611202007"></script>
+  <script src="script.js?v=202611202007"></script>
 </body>
 </html>
