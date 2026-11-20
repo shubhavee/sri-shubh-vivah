@@ -209,6 +209,8 @@ small { color: var(--muted); font-size: .8em; }
 .family-card:last-of-type { order: 3; }
 [data-side="groom"] .family-card:first-of-type { order: 3; }
 [data-side="groom"] .family-card:last-of-type { order: 1; }
+/* …and mirror the portraits so the couple still face each other */
+[data-side="groom"] .family-card .portrait svg { transform: scaleX(-1); }
 
 /* ---------- Poem ---------- */
 .poem { padding-bottom: 20px; }
