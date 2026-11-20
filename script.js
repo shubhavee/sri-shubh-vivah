@@ -109,8 +109,6 @@
   /* ---------- Petals ---------- */
   const petals = $("#petals");
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  // "Scroll to explore" fades away once the guest starts scrolling.
-  addEventListener("scroll", () => $("#scrollHint").classList.toggle("gone", scrollY > 40), { passive: true });
   function dropPetal() {
     const p = document.createElement("span");
     p.className = "petal" + (Math.random() < 0.3 ? " rose" : "");

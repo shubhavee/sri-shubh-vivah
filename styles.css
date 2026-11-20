@@ -123,14 +123,6 @@ small { color: var(--muted); font-size: .8em; }
     linear-gradient(180deg, #4a0b18, var(--maroon) 55%, #6e1426);
   color: var(--cream); text-align: center; overflow: hidden;
 }
-.scroll-hint {
-  position: absolute; left: 50%; bottom: 14px; translate: -50% 0; z-index: 2; display: grid; justify-items: center; gap: 2px;
-  color: var(--gold-light); text-decoration: none; font-family: var(--display); font-size: .62rem; letter-spacing: .22em; text-transform: uppercase;
-  opacity: .85; transition: opacity .6s;
-}
-.scroll-hint svg { width: 22px; height: 22px; animation: nudge 2.4s ease-in-out infinite; }
-.scroll-hint.gone { opacity: 0; pointer-events: none; }
-@keyframes nudge { 0%, 100% { transform: translateY(0); opacity: .6; } 50% { transform: translateY(6px); opacity: 1; } }
 .mandala {
   position: absolute; width: min(860px, 170vw); aspect-ratio: 1; left: 50%; top: 52%; translate: -50% -50%;
   color: #ecd08a; opacity: .2; animation: spin 240s linear infinite; pointer-events: none;
@@ -347,7 +339,6 @@ small { color: var(--muted); font-size: .8em; }
   .lanterns { top: 50px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .scroll-hint svg { animation: none; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .day, .family-card { opacity: 1; transform: none; }
 }
