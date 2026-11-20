@@ -6,6 +6,7 @@
   const INVITE = document.documentElement.dataset.invite === "day" ? "day" : "full";
   const host = W.hosts[HOST], invite = W.invites[INVITE];
   W.displayDate = invite.displayDate;
+  W.joinUs = invite.joinUs;
   W.invocation = host.invocation;
   // Keep events meant for this family and this invitation; drop days left empty.
   const showEvent = (e) => (!e.side || e.side === HOST) && (INVITE === "full" || e.day);
