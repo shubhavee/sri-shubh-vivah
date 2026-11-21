@@ -98,16 +98,18 @@
   document.querySelectorAll(".day, .family-card").forEach((el) => io.observe(el));
 
   /* ---------- First screen fitted to the phone ---------- */
-  // Every phone gets the same picture: the whole arch, plus the same strip of the next section peeking in below.
+  // Every phone gets the same picture: the whole arch, and below it the Om with the poem's first line cut in half
+  // (half a sentence clearly says "there's more").
   // Measured once (and on rotation), not on every resize, so it doesn't jump when the browser bars hide while scrolling.
-  const PEEK = 80; // px of the next section left showing
   const probe = Object.assign(document.createElement("div"), { style: "position:fixed;top:0;height:100svh;width:0;visibility:hidden;pointer-events:none" });
   document.body.append(probe);
   function fitHero() {
     const hero = $(".hero"), arch = $(".hero .arch");
     hero.style.height = ""; arch.style.zoom = "";
     if (!matchMedia("(max-width: 640px)").matches) return;
-    const h = probe.offsetHeight - PEEK;
+    const poemHi = $(".poem-hi"); // its offsetParent is the poem section
+    const peek = poemHi.offsetTop + parseFloat(getComputedStyle(poemHi).lineHeight) * 0.55;
+    const h = probe.offsetHeight - peek;
     const cs = getComputedStyle(hero);
     const room = h - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
     hero.style.height = `${h}px`;
@@ -228,7 +230,23 @@
     audio.volume = 0.6;
     setMusicOn(musicOn);
     if (!reduced) { burst(40); setInterval(dropPetal, 900); }
+    setTimeout(nudge, 1400);
   });
+
+  // Once, after opening: the page glides up a little and settles back, showing that it scrolls.
+  function nudge() {
+    if (reduced || scrollY > 0) return;
+    let stop = false;
+    const cancel = () => { stop = true; };
+    ["touchstart", "wheel", "keydown"].forEach((ev) => addEventListener(ev, cancel, { once: true, passive: true }));
+    const D = 90, T = 1700, t0 = performance.now(), root = document.documentElement;
+    root.style.scrollBehavior = "auto"; // each frame jumps exactly; the CSS smooth scrolling would fight it
+    requestAnimationFrame(function step(now) {
+      const p = Math.min(1, (now - t0) / T);
+      if (!stop) scrollTo(0, D * (1 - Math.cos(2 * Math.PI * p)) / 2); // 0 → D → 0, easing at both ends
+      if (p < 1 && !stop) requestAnimationFrame(step); else root.style.scrollBehavior = "";
+    });
+  }
 
   /* ---------- Sending to Google Sheet ---------- */
   async function sendToSheet(payload) {

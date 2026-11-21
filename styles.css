@@ -349,7 +349,8 @@ small { color: var(--muted); font-size: .8em; }
   .lanterns { top: 50px; }
   /* First screen a little shorter than the phone, so the cream page and Om peek in below it. */
   .hero { min-height: 0; padding: 78px 16px 40px; } /* height set by fitHero() in script.js */
-  .poem { padding-top: 26px; }
+  .poem { padding-top: 18px; }
+  .poem-om { margin-bottom: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
