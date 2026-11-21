@@ -97,6 +97,27 @@
   }), { threshold: 0.15 });
   document.querySelectorAll(".day, .family-card").forEach((el) => io.observe(el));
 
+  /* ---------- First screen fitted to the phone ---------- */
+  // Every phone gets the same picture: the whole arch, plus the same strip of the next section peeking in below.
+  // Measured once (and on rotation), not on every resize, so it doesn't jump when the browser bars hide while scrolling.
+  const PEEK = 80; // px of the next section left showing
+  const probe = Object.assign(document.createElement("div"), { style: "position:fixed;top:0;height:100svh;width:0;visibility:hidden;pointer-events:none" });
+  document.body.append(probe);
+  function fitHero() {
+    const hero = $(".hero"), arch = $(".hero .arch");
+    hero.style.height = ""; arch.style.zoom = "";
+    if (!matchMedia("(max-width: 640px)").matches) return;
+    const h = probe.offsetHeight - PEEK;
+    const cs = getComputedStyle(hero);
+    const room = h - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    hero.style.height = `${h}px`;
+    const fit = room / arch.offsetHeight;
+    if (fit < 1) arch.style.zoom = Math.max(0.6, fit).toFixed(3);
+  }
+  fitHero();
+  document.fonts?.ready.then(fitHero);
+  addEventListener("orientationchange", () => setTimeout(fitHero, 300));
+
   /* ---------- Countdown ---------- */
   const target = new Date(invite.countdownTo).getTime();
   const pad = (n) => String(n).padStart(2, "0");
